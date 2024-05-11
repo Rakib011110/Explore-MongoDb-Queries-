@@ -322,6 +322,7 @@ db.collection.deleteOne({ name: "John" });
 
 
 
+
 ## MongoDB Queries Cheat Sheet
 
 <table>
@@ -334,49 +335,59 @@ db.collection.deleteOne({ name: "John" });
   </thead>
   <tbody>
     <tr>
-      <td>Inserting Data</td>
-      <td><code>insertOne()</code></td>
-      <td><code>db.collection.insertOne({ key: "value" })</code></td>
-    </tr>
-    <tr>
-      <td></td>
-      <td><code>insertMany()</code></td>
-      <td><code>db.collection.insertMany([{ key1: "value1" }, { key2: "value2" }])</code></td>
-    </tr>
-    <tr>
-      <td>Retrieving Data</td>
+      <td>Find documents</td>
       <td><code>find()</code></td>
-      <td><code>db.collection.find({ age: { $gte: 30 } })</code></td>
+      <td><code>db.collection.find({ age: 30 })</code></td>
     </tr>
     <tr>
-      <td>Operators for Data Retrieval</td>
-      <td><code>$in</code></td>
-      <td><code>db.collection.find({ status: { $in: ["active", "pending"] } })</code></td>
+      <td>Find one document</td>
+      <td><code>findOne()</code></td>
+      <td><code>db.collection.findOne({ email: "example@example.com" })</code></td>
     </tr>
     <tr>
-      <td></td>
-      <td><code>$and</code>, <code>$or</code></td>
-      <td><code>db.collection.find({ $and: [{ age: { $ne: 10 } }, { age: { $lte: 30 } }] })</code></td>
+      <td>Insert a document</td>
+      <td><code>insertOne()</code></td>
+      <td><code>db.collection.insertOne({ name: "John", age: 25 })</code></td>
     </tr>
     <tr>
-      <td>Updating Data</td>
+      <td>Insert multiple documents</td>
+      <td><code>insertMany()</code></td>
+      <td><code>db.collection.insertMany([{ name: "Alice", email: "alice@example.com" }, { name: "Bob", email: "bob@example.com" }])</code></td>
+    </tr>
+    <tr>
+      <td>Update a document</td>
       <td><code>updateOne()</code></td>
-      <td><code>db.collection.updateOne({ _id: 1 }, { $set: { key: "new value" } })</code></td>
+      <td><code>db.collection.updateOne({ name: "John" }, { $set: { age: 30 } })</code></td>
     </tr>
     <tr>
-      <td></td>
+      <td>Update multiple documents</td>
       <td><code>updateMany()</code></td>
-      <td><code>db.collection.updateMany({ status: "active" }, { $set: { status: "inactive" } })</code></td>
+      <td><code>db.collection.updateMany({ age: { $lt: 18 } }, { $set: { status: "minor" } })</code></td>
     </tr>
     <tr>
-      <td>Deleting Data</td>
+      <td>Replace a document</td>
+      <td><code>replaceOne()</code></td>
+      <td><code>db.collection.replaceOne({ field_name: value_name }, { new_document })</code></td>
+    </tr>
+    <tr>
+      <td>Delete a document</td>
       <td><code>deleteOne()</code></td>
-      <td><code>db.collection.deleteOne({ key: "value" })</code></td>
+      <td><code>db.collection.deleteOne({ name: "John" })</code></td>
     </tr>
     <tr>
-      <td></td>
+      <td>Delete multiple documents</td>
       <td><code>deleteMany()</code></td>
       <td><code>db.collection.deleteMany({ status: "inactive" })</code></td>
+    </tr>
+    <tr>
+      <td>Count documents</td>
+      <td><code>countDocuments()</code></td>
+      <td><code>db.collection.countDocuments({ age: { $gte: 18 } })</code></td>
+    </tr>
+    <tr>
+      <td>Aggregate documents</td>
+      <td><code>aggregate()</code></td>
+      <td><code>db.collection.aggregate([{ $match: { age: { $gte: 18 } } }, { $group: { _id: "$age", count: { $sum: 1 } } }])</code></td>
     </tr>
   </tbody>
 </table>
