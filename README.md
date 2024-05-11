@@ -317,71 +317,66 @@ db.collection.deleteOne({ name: "John" });
 
 ```
 </details> 
+
 ---------
-Certainly! Here's the short list with simple code examples:
 
----
 
-# Explore MongoDB Queries
 
-## Introduction:
+## MongoDB Queries Cheat Sheet
 
-MongoDB is a flexible, scalable, and powerful document-oriented database system widely used for data storage and retrieval.
-
-## Installation Instructions:
-
-1. **MongoDB Compass:** Download and install from [here](https://www.mongodb.com/try/download/compass).
-2. **NoSQL Booster:** Download and install from [here](https://www.nosqlbooster.com/downloads).
-
-## Basic Methods for Data Manipulation:
-
-### Inserting Data:
-
-```javascript
-// Insert one document
-db.collection.insertOne({ key: "value" });
-
-// Insert multiple documents
-db.collection.insertMany([{ key1: "value1" }, { key2: "value2" }]);
-```
-
-### Retrieving Data:
-
-```javascript
-// Find documents with age greater than or equal to 30
-db.collection.find({ age: { $gte: 30 } });
-```
-
-### Operators for Data Retrieval:
-
-```javascript
-// Find documents with status "active" or "pending"
-db.collection.find({ status: { $in: ["active", "pending"] } });
-
-// Find documents where age is not 10 and less than or equal to 30
-db.collection.find({ $and: [{ age: { $ne: 10 } }, { age: { $lte: 30 } }] });
-```
-
-### Updating Data:
-
-```javascript
-// Update one document
-db.collection.updateOne({ _id: 1 }, { $set: { key: "new value" } });
-
-// Update multiple documents
-db.collection.updateMany({ status: "active" }, { $set: { status: "inactive" } });
-```
-
-### Deleting Data:
-
-```javascript
-// Delete one document
-db.collection.deleteOne({ key: "value" });
-
-// Delete multiple documents
-db.collection.deleteMany({ status: "inactive" });
-```
-
----
-
-This short list provides simple code examples for basic MongoDB operations.
+<table>
+  <thead>
+    <tr>
+      <th>Operation</th>
+      <th>Method</th>
+      <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Inserting Data</td>
+      <td><code>insertOne()</code></td>
+      <td><code>db.collection.insertOne({ key: "value" })</code></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td><code>insertMany()</code></td>
+      <td><code>db.collection.insertMany([{ key1: "value1" }, { key2: "value2" }])</code></td>
+    </tr>
+    <tr>
+      <td>Retrieving Data</td>
+      <td><code>find()</code></td>
+      <td><code>db.collection.find({ age: { $gte: 30 } })</code></td>
+    </tr>
+    <tr>
+      <td>Operators for Data Retrieval</td>
+      <td><code>$in</code></td>
+      <td><code>db.collection.find({ status: { $in: ["active", "pending"] } })</code></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td><code>$and</code>, <code>$or</code></td>
+      <td><code>db.collection.find({ $and: [{ age: { $ne: 10 } }, { age: { $lte: 30 } }] })</code></td>
+    </tr>
+    <tr>
+      <td>Updating Data</td>
+      <td><code>updateOne()</code></td>
+      <td><code>db.collection.updateOne({ _id: 1 }, { $set: { key: "new value" } })</code></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td><code>updateMany()</code></td>
+      <td><code>db.collection.updateMany({ status: "active" }, { $set: { status: "inactive" } })</code></td>
+    </tr>
+    <tr>
+      <td>Deleting Data</td>
+      <td><code>deleteOne()</code></td>
+      <td><code>db.collection.deleteOne({ key: "value" })</code></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td><code>deleteMany()</code></td>
+      <td><code>db.collection.deleteMany({ status: "inactive" })</code></td>
+    </tr>
+  </tbody>
+</table>
