@@ -317,3 +317,71 @@ db.collection.deleteOne({ name: "John" });
 
 ```
 </details> 
+---------
+Certainly! Here's the short list with simple code examples:
+
+---
+
+# Explore MongoDB Queries
+
+## Introduction:
+
+MongoDB is a flexible, scalable, and powerful document-oriented database system widely used for data storage and retrieval.
+
+## Installation Instructions:
+
+1. **MongoDB Compass:** Download and install from [here](https://www.mongodb.com/try/download/compass).
+2. **NoSQL Booster:** Download and install from [here](https://www.nosqlbooster.com/downloads).
+
+## Basic Methods for Data Manipulation:
+
+### Inserting Data:
+
+```javascript
+// Insert one document
+db.collection.insertOne({ key: "value" });
+
+// Insert multiple documents
+db.collection.insertMany([{ key1: "value1" }, { key2: "value2" }]);
+```
+
+### Retrieving Data:
+
+```javascript
+// Find documents with age greater than or equal to 30
+db.collection.find({ age: { $gte: 30 } });
+```
+
+### Operators for Data Retrieval:
+
+```javascript
+// Find documents with status "active" or "pending"
+db.collection.find({ status: { $in: ["active", "pending"] } });
+
+// Find documents where age is not 10 and less than or equal to 30
+db.collection.find({ $and: [{ age: { $ne: 10 } }, { age: { $lte: 30 } }] });
+```
+
+### Updating Data:
+
+```javascript
+// Update one document
+db.collection.updateOne({ _id: 1 }, { $set: { key: "new value" } });
+
+// Update multiple documents
+db.collection.updateMany({ status: "active" }, { $set: { status: "inactive" } });
+```
+
+### Deleting Data:
+
+```javascript
+// Delete one document
+db.collection.deleteOne({ key: "value" });
+
+// Delete multiple documents
+db.collection.deleteMany({ status: "inactive" });
+```
+
+---
+
+This short list provides simple code examples for basic MongoDB operations.
