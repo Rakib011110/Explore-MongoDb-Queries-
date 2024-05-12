@@ -395,9 +395,9 @@ db.collection.deleteOne({ name: "John" });
 ----
 
 
-# MongoDB aggregation stages 
+# MongoDB aggregation stages
 
-1. **$Match and $Project:**
+**1. $Match and $Project:**
    
 
 <table>
@@ -411,19 +411,19 @@ db.collection.deleteOne({ name: "John" });
   <tbody>
     <tr>
       <td>$match</td>
-    <td>  { $match: { age: { $gte: 18 } } }  </td>
+    <td> <code> { $match: { age: { $gte: 18 } } }  </code> </td>
       <td>Selects documents with age greater than or equal to 18.</td>
     </tr>
     <tr>
       <td>$project</td>
-      <td>{ $project: { _id: 0, name: 1 } }</td>
+      <td> <code> { $project: { _id: 0, name: 1 } }</code> </td>
       <td>Projects only the 'name' field excluding '_id'.</td>
     </tr>
   </tbody>
 </table>
 
 
-2. **$AddFields, $Out, and $Merge:**
+**2. $AddFields, $Out, and $Merge:**
    
 
 <table>
@@ -437,19 +437,19 @@ db.collection.deleteOne({ name: "John" });
   <tbody>
     <tr>
       <td>$addFields</td>
-      <td>{ $addFields: { fullName: { $concat: ["$firstName", " ", "$lastName"] } } }</td>
+      <td> <code>  { $addFields: { fullName: { $concat: ["$firstName", " ", "$lastName"] } } }</code></td>
       <td>Creates a new field 'fullName' by concatenating 'firstName' and 'lastName'.</td>
     </tr>
     <tr>
       <td>$out</td>
-      <td>{ $out: "new_collection" }</td>
+      <td><code>{ $out: "new_collection" }  </code> </td>
       <td>Writes the result of the aggregation pipeline to a new collection.</td>
     </tr>
   </tbody>
 </table>
 
 
-3. **$Group, $Sum, and $Push:**
+**3. $Group, $Sum, and $Push:**
    
 
 <table>
@@ -463,19 +463,19 @@ db.collection.deleteOne({ name: "John" });
   <tbody>
     <tr>
       <td>$group</td>
-      <td>{ $group: { _id: "$category", total: { $sum: "$quantity" } } }</td>
+      <td> <code>{ $group: { _id: "$category", total: { $sum: "$quantity" } } } </code></td>
       <td>Groups documents by 'category' and calculates total quantity for each category.</td>
     </tr>
     <tr>
       <td>$sum</td>
-      <td>{ $sum: "$amount" }</td>
+      <td> <code> { $sum: "$amount" } </code></td>
       <td>Calculates the sum of values in a field across all documents.</td>
     </tr>
   </tbody>
 </table>
 
 
-4. **$Group and $Project:**
+**4. $Group and $Project:**
    
 
 <table>
@@ -501,7 +501,7 @@ db.collection.deleteOne({ name: "John" });
 </table>
 
 
-5. **$Group with $Unwind:**
+**5. $Group with $Unwind:**
    
 
 <table>
@@ -515,18 +515,18 @@ db.collection.deleteOne({ name: "John" });
   <tbody>
     <tr>
       <td>$group</td>
-      <td>{ $group: { _id: "$category", items: { $push: "$name" } } }</td>
+      <td><code> { $group: { _id: "$category", items: { $push: "$name" } } }</code> </td>
       <td>Groups documents by 'category' and creates an array of 'name' field values for each category.</td>
     </tr>
     <tr>
       <td>$unwind</td>
-      <td>{ $unwind: "$items" }</td>
+      <td><code>{ $unwind: "$items" } </code> </td>
       <td>Deconstructs the 'items' array created by $group stage.</td>
     </tr>
   </tbody>
 </table>
 
-6. **$Bucket, $Sort, and $Limit:**
+**6. $Bucket, $Sort, and $Limit:**
    
 
 <table>
@@ -540,23 +540,23 @@ db.collection.deleteOne({ name: "John" });
   <tbody>
     <tr>
       <td>$bucket</td>
-      <td>{ $bucket: { groupBy: "$price", boundaries: [0, 100, 200], default: "Other" } }</td>
+      <td><code>{ $bucket: { groupBy: "$price", boundaries: [0, 100, 200], default: "Other" } } </code> </td>
       <td>Buckets documents based on 'price' field values.</td>
     </tr>
     <tr>
       <td>$sort</td>
-      <td>{ $sort: { price: -1 } }</td>
+      <td><code> { $sort: { price: -1 } }</code> </td>
       <td>Sorts documents by 'price' field in descending order.</td>
     </tr>
     <tr>
       <td>$limit</td>
-      <td>{ $limit: 5 }</td>
+      <td><code> { $limit: 5 }</code> </td>
       <td>Limits the number of documents in the output to 5.</td>
     </tr>
   </tbody>
 </table>
 
-7. **$Facet, Multiple Pipeline:**
+**7. $Facet, Multiple Pipeline:**
    
 <table>
   <thead>
@@ -569,13 +569,13 @@ db.collection.deleteOne({ name: "John" });
   <tbody>
     <tr>
       <td>$facet</td>
-      <td>{ $facet: { categoryCount: [ { $group: { _id: "$category", count: { $sum: 1 } } } ] } }</td>
+      <td><code> { $facet: { categoryCount: [ { $group: { _id: "$category", count: { $sum: 1 } } } ] } }</code> </td>
       <td>Allows multiple pipelines to be executed within a single stage.</td>
     </tr>
   </tbody>
 </table>
 
-8. **$Lookup Stage, Embedding Vs Referencing:**
+**8. $Lookup Stage, Embedding Vs Referencing:**
    
 <table>
   <thead>
@@ -588,13 +588,13 @@ db.collection.deleteOne({ name: "John" });
   <tbody>
     <tr>
       <td>$lookup</td>
-      <td>{ $lookup: { from: "orders", localField: "productId", foreignField: "_id", as: "orderDetails" } }</td>
+      <td><code> { $lookup: { from: "orders", localField: "productId", foreignField: "_id", as: "orderDetails" } } </code></td>
       <td>Performs a left outer join to another collection.</td>
     </tr>
   </tbody>
 </table>
 
-9. **Indexing, COLLSCAN Vs IXSCAN:**
+**9.  Indexing, COLLSCAN Vs IXSCAN:**
    
 <table>
   <thead>
@@ -606,16 +606,14 @@ db.collection.deleteOne({ name: "John" });
   </thead>
   <tbody>
     <tr>
-      <
-
-td>Indexing</td>
-      <td>db.collection.createIndex({ field: 1 })</td>
+      <td>Indexing</td>
+      <td><code>db.collection.createIndex({ field: 1 }) </code> </td>
       <td>Creates an ascending index on the 'field'.</td>
     </tr>
   </tbody>
 </table>
 
-10. **Compound Index and Text Index:**
+**10. Compound Index and Text Index:**
    
 
 <table>
@@ -629,12 +627,12 @@ td>Indexing</td>
   <tbody>
     <tr>
       <td>Compound Index</td>
-      <td>db.collection.createIndex({ field1: 1, field2: -1 })</td>
+      <td><code>db.collection.createIndex({ field1: 1, field2: -1 }) </code> </td>
       <td>Creates a compound index on 'field1' (ascending) and 'field2' (descending).</td>
     </tr>
     <tr>
       <td>Text Index</td>
-      <td>db.collection.createIndex({ "$**": "text" })</td>
+      <td><code>db.collection.createIndex({ "$**": "text" }) </code> </td>
       <td>Creates a text index on all string fields in the collection.</td>
     </tr>
   </tbody>
