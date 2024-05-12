@@ -391,3 +391,251 @@ db.collection.deleteOne({ name: "John" });
     </tr>
   </tbody>
 </table>
+
+----
+
+
+# MongoDB aggregation stages 
+
+1. **$Match and $Project:**
+   
+
+<table>
+  <thead>
+    <tr>
+      <th>Stage</th>
+      <th>Method</th>
+      <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>$match</td>
+    <td>  { $match: { age: { $gte: 18 } } }  </td>
+      <td>Selects documents with age greater than or equal to 18.</td>
+    </tr>
+    <tr>
+      <td>$project</td>
+      <td>{ $project: { _id: 0, name: 1 } }</td>
+      <td>Projects only the 'name' field excluding '_id'.</td>
+    </tr>
+  </tbody>
+</table>
+
+
+2. **$AddFields, $Out, and $Merge:**
+   
+
+<table>
+  <thead>
+    <tr>
+      <th>Stage</th>
+      <th>Method</th>
+      <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>$addFields</td>
+      <td>{ $addFields: { fullName: { $concat: ["$firstName", " ", "$lastName"] } } }</td>
+      <td>Creates a new field 'fullName' by concatenating 'firstName' and 'lastName'.</td>
+    </tr>
+    <tr>
+      <td>$out</td>
+      <td>{ $out: "new_collection" }</td>
+      <td>Writes the result of the aggregation pipeline to a new collection.</td>
+    </tr>
+  </tbody>
+</table>
+
+
+3. **$Group, $Sum, and $Push:**
+   
+
+<table>
+  <thead>
+    <tr>
+      <th>Stage</th>
+      <th>Method</th>
+      <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>$group</td>
+      <td>{ $group: { _id: "$category", total: { $sum: "$quantity" } } }</td>
+      <td>Groups documents by 'category' and calculates total quantity for each category.</td>
+    </tr>
+    <tr>
+      <td>$sum</td>
+      <td>{ $sum: "$amount" }</td>
+      <td>Calculates the sum of values in a field across all documents.</td>
+    </tr>
+  </tbody>
+</table>
+
+
+4. **$Group and $Project:**
+   
+
+<table>
+  <thead>
+    <tr>
+      <th>Stage</th>
+      <th>Method</th>
+      <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>$group</td>
+      <td><code> { $group: { _id: "$category", avgPrice: { $avg: "$price" } } } </code>  </td>
+      <td>Groups documents by 'category' and calculates average price for each category.</td>
+    </tr>
+    <tr>
+      <td>$project</td>
+      <td> <code> </code> { $project: { category: 1, avgPrice: 1 } }</td>
+      <td>Projects 'category' and 'avgPrice' fields.</td>
+    </tr>
+  </tbody>
+</table>
+
+
+5. **$Group with $Unwind:**
+   
+
+<table>
+  <thead>
+    <tr>
+      <th>Stage</th>
+      <th>Method</th>
+      <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>$group</td>
+      <td>{ $group: { _id: "$category", items: { $push: "$name" } } }</td>
+      <td>Groups documents by 'category' and creates an array of 'name' field values for each category.</td>
+    </tr>
+    <tr>
+      <td>$unwind</td>
+      <td>{ $unwind: "$items" }</td>
+      <td>Deconstructs the 'items' array created by $group stage.</td>
+    </tr>
+  </tbody>
+</table>
+
+6. **$Bucket, $Sort, and $Limit:**
+   
+
+<table>
+  <thead>
+    <tr>
+      <th>Stage</th>
+      <th>Method</th>
+      <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>$bucket</td>
+      <td>{ $bucket: { groupBy: "$price", boundaries: [0, 100, 200], default: "Other" } }</td>
+      <td>Buckets documents based on 'price' field values.</td>
+    </tr>
+    <tr>
+      <td>$sort</td>
+      <td>{ $sort: { price: -1 } }</td>
+      <td>Sorts documents by 'price' field in descending order.</td>
+    </tr>
+    <tr>
+      <td>$limit</td>
+      <td>{ $limit: 5 }</td>
+      <td>Limits the number of documents in the output to 5.</td>
+    </tr>
+  </tbody>
+</table>
+
+7. **$Facet, Multiple Pipeline:**
+   
+<table>
+  <thead>
+    <tr>
+      <th>Stage</th>
+      <th>Method</th>
+      <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>$facet</td>
+      <td>{ $facet: { categoryCount: [ { $group: { _id: "$category", count: { $sum: 1 } } } ] } }</td>
+      <td>Allows multiple pipelines to be executed within a single stage.</td>
+    </tr>
+  </tbody>
+</table>
+
+8. **$Lookup Stage, Embedding Vs Referencing:**
+   
+<table>
+  <thead>
+    <tr>
+      <th>Stage</th>
+      <th>Method</th>
+      <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>$lookup</td>
+      <td>{ $lookup: { from: "orders", localField: "productId", foreignField: "_id", as: "orderDetails" } }</td>
+      <td>Performs a left outer join to another collection.</td>
+    </tr>
+  </tbody>
+</table>
+
+9. **Indexing, COLLSCAN Vs IXSCAN:**
+   
+<table>
+  <thead>
+    <tr>
+      <th>Topic</th>
+      <th>Method</th>
+      <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <
+
+td>Indexing</td>
+      <td>db.collection.createIndex({ field: 1 })</td>
+      <td>Creates an ascending index on the 'field'.</td>
+    </tr>
+  </tbody>
+</table>
+
+10. **Compound Index and Text Index:**
+   
+
+<table>
+  <thead>
+    <tr>
+      <th>Topic</th>
+      <th>Method</th>
+      <th>Example</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Compound Index</td>
+      <td>db.collection.createIndex({ field1: 1, field2: -1 })</td>
+      <td>Creates a compound index on 'field1' (ascending) and 'field2' (descending).</td>
+    </tr>
+    <tr>
+      <td>Text Index</td>
+      <td>db.collection.createIndex({ "$**": "text" })</td>
+      <td>Creates a text index on all string fields in the collection.</td>
+    </tr>
+  </tbody>
+</table>
